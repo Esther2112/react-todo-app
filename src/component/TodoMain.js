@@ -3,24 +3,14 @@ import TodoItem from "./TodoItem";
 
 import './scss/TodoMain.scss'
 
-const TodoMain = ({todoList}) => {
-
-    // console.log(props.todoList);
-    const renderTodoItem = () => {
-        const todoItems = [];
-        for(const todo of todoList) {
-            todoItems.push(<TodoItem />)
+const TodoMain = ({todoList}) => (
+    <ul className={'todo-list'}>
+        {
+            todoList.map( todo =>
+                (<TodoItem item={todo}/>)
+            )
         }
-        return todoItems;
-    }
-
-    return (
-        <ul className='todo-list'>
-            {
-                renderTodoItem()
-            }
-        </ul>
-    );
-};
+    </ul>
+);
 
 export default TodoMain;
