@@ -1,0 +1,63 @@
+@mixin content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-list-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 0px;
+
+  &:hover .remove {
+    display: block;
+  }
+
+  //background: orange;
+
+  .check-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #9da1a7;
+    font-size: 24px;
+    margin-right: 20px;
+    cursor: pointer;
+
+    @include content-center;
+
+    &.active {
+      border: 1px solid #38d9a9;
+      color: #38d9a9;
+    }
+  }
+
+  .text {
+    font-size: 21px;
+    //background: tomato;
+    color: #495057;
+    flex: 1; //다른 애들의 최소 크기를 보장하고 나머지를 내가 다 먹기
+
+    &.finish {
+      color: #919396;
+      text-decoration: line-through;
+    }
+  }
+
+  .remove {
+    //background: orange;
+    font-size: 28px;
+    cursor: pointer;
+    color: #f51b4f;
+
+    @include content-center;
+
+    display: none;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+
+}
