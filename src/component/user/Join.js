@@ -11,12 +11,13 @@ import {
     Link
 } from "@mui/material";
 import {API_BASE_URL as BASE, USER} from "../../config/host-config";
-import {useNavigate} from "react-router-dom";
-import {red} from "@mui/material/colors";
+import {useNavigate} from 'react-router-dom';
 
 const Join = () => {
 
-    const redirection= useNavigate();
+    // 리다이렉트 사용하기
+    const redirection = useNavigate();
+
     const API_BASE_URL = BASE + USER;
 
     // 상태변수로 회원가입 입력값 관리
@@ -100,7 +101,7 @@ const Join = () => {
 
     };
 
-// 이메일 중복체크 서버 통신 함수
+    // 이메일 중복체크 서버 통신 함수
     const fetchDuplicateCheck = async (email) => {
 
         const res = await fetch(`${API_BASE_URL}/check?email=${email}`);
@@ -120,9 +121,9 @@ const Join = () => {
             alert('서버 통신이 원활하지 않습니다!');
         }
 
-        setUserValue({...userValue, email: email });
-        setMessage({...message, email: msg });
-        setCorrect({...correct, email: flag });
+        setUserValue({...userValue, email: email});
+        setMessage({...message, email: msg});
+        setCorrect({...correct, email: flag});
 
     };
 
@@ -153,7 +154,7 @@ const Join = () => {
             flag
         });
 
-    }
+    };
 
     // 패스워드 입력창 체인지 이벤트 핸들러
     const passwordHandler = e => {
@@ -222,41 +223,45 @@ const Join = () => {
 
     };
 
-    //네개의 입력칸이 모두 검증에 통과했는지 여부를 검사
+    // 4개의 입력칸이 모두 검증에 통과했는지 여부를 검사
     const isValid = () => {
-        for(const key in correct){
+        for (const key in correct) {
             const flag = correct[key];
-            if(!flag) return false;
+            if (!flag) return false;
         }
-        return true;
-    }
 
-    //회원가입 처리 서버 요청
+        return true;
+    };
+
+    // 회원가입 처리 서버 요청
     const fetchSignUpPost = async () => {
-        const res = fetch(API_BASE_URL, {
-            method: 'post',
-            headers: {'content-type': 'application/json'},
+        const res = await fetch(API_BASE_URL, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
             body: JSON.stringify(userValue)
         });
 
-        if((await res).status === 200){
-            alert('회원가입에 성공했습니다');
-            //로그인 페이지로 리다이렉트
-            window.location.href = '/login'
-            redirection('/login'); //라우터돔으로 처리하여 화면깜빡임 없음
+        if (res.status === 200) {
+            alert('회원가입에 성공했습니다! 축하합니다!');
+            // 로그인 페이지로 리다이렉트
+            // window.location.href = '/login'; 혹은
+            redirection('/login'); // 이 방법은 라우터 돔으로 처리하니까 화면 깜빡임이 없다.
         } else {
             alert('서버와의 통신이 원활하지 않습니다');
         }
-    }
+    };
 
+    // 클릭시 서버로 보내기
     const joinButtonClickHandler = e => {
 
         e.preventDefault();
 
-        //회원 가입 서버 요청
-        if(isValid()){
+        // 회원가입 서버 요청
+        if (isValid()) {
             fetchSignUpPost();
-            // alert('회원가입 정보를 서버에 전송합니다');
+            // alert('회원가입 정보를 서버에 전송합니다.');
         } else {
             alert('입력란을 다시 확인해주세요!');
         }
@@ -311,7 +316,7 @@ const Join = () => {
                             correct.email
                                 ? {color: 'green'}
                                 : {color: 'red'}
-                        }></span>
+                        }>{message.email}</span>
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
